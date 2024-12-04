@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weights</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Weights</h1>
+    <form action="/weights" method="POST">
+        <input type="number" name="weight" placeholder="Weight" required>
+        <button type="submit">Add Weight</button>
+    </form>
+    <ul id="weight-list">
+        <% weights.forEach(weight => { %>
+            <li>
+                <%= weight.weight %> kg - <%= weight.date %>
+                <form action="/weights/<%= weight._id %>/edit" method="POST" style="display:inline;">
+                    <input type="number" name="weight" placeholder="Weight" required>
+                    <button type="submit" class="edit">Edit</button>
+                </form>
+                <form action="/weights/<%= weight._id %>/delete" method="POST" style="display:inline;">
+                    <button type="submit" class="delete">Delete</button>
+                </form>
+            </li>
+        <% }) %>
+    </ul>
+    <div class="pagination">
+        <% for(let i = 1; i <= totalPages; i++) { %>
+            <a href="?page=<%= i %>"><%= i %></a>
+        <% } %>
+    </div>
+
+    <h2>Find Weight Loss Between Two Dates</h2>
+    <form id="weight-loss-form">
+        <input type="date" id="start-date" required>
+        <input type="date" id="end-date" required>
+        <button type="submit">Find Weight Loss</button>
+    </form>
+    <div id="weight-loss-result"></div>
+
+    <a href="/logout">Logout</a>
+    <script src="/main.js"></script>
+</body>
+</html>
